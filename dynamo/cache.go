@@ -29,13 +29,12 @@ func NewCache() *Cache {
 // Get the value of a key from the storage. This will handle concurrent get
 // requests by locking the structure.
 func (cache *Cache) Get(key string) (value string, timestamp int64) {
-	log.Printf("[CACHE] Getting Key '%v' with Value '%v' @ timestamp '%v'\n", key, value, timestamp)
-
 	cache.Lock()
 	value = cache.data[key]
 	timestamp = cache.timestamps[key]
 	cache.Unlock()
 
+	log.Printf("[CACHE] Getting Key '%v' with Value '%v' @ timestamp '%v'\n", key, value, timestamp)
 	return value, timestamp
 }
 
